@@ -11,8 +11,36 @@ namespace SimpleFileLogging.TestConsoleApp
     {
         static void Main(string[] args)
         {
-            SimpleFileLogger.Info("Program started.");
-            SimpleFileLogger.Info("Program finished.");
+            SimpleFileLogOptions.EnableMethodGrouping = false;
+            SimpleFileLogger.Info("Program started1.");
+            SimpleFileLogger.Debug("Program started1.");
+
+            SimpleFileLogger.Info("Program finished1.");
+            SimpleFileLogger.Debug("Program finished1.");
+            try
+            {
+                throw new Exception("something something is going to dark side1.");
+            }
+            catch (Exception e)
+            {
+                SimpleFileLogger.LogError(e);
+            }
+
+            SimpleFileLogOptions.EnableMethodGrouping = true;
+            SimpleFileLogger.Info("Program started2.");
+            SimpleFileLogger.Debug("Program started2.");
+
+            SimpleFileLogger.Info("Program finished2.");
+            SimpleFileLogger.Debug("Program finished2.");
+
+            try
+            {
+                throw new Exception("something something is going to dark side2.");
+            }
+            catch (Exception e)
+            {
+                SimpleFileLogger.LogError(e);
+            }
 
             Console.ReadKey();
         }

@@ -29,8 +29,8 @@
         {
             get
             {
-                var dir = AppDomain.CurrentDomain.BaseDirectory;
-                return dir;
+                var directory = AppDomain.CurrentDomain.BaseDirectory;
+                return directory;
             }
         }
     }
