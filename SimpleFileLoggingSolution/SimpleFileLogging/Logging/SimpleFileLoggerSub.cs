@@ -1,4 +1,10 @@
-﻿namespace SimpleFileLogging
+﻿////////////////////////////////////////////////////////////////////////////////////////////////////
+// file:	Logging\SimpleFileLoggerSub.cs
+//
+// summary:	Implements the simple file logger sub class
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+namespace SimpleFileLogging
 {
     using System;
     using System.Collections.Generic;
@@ -7,12 +13,22 @@
     using System.Reflection;
     using System.Linq;
 
-    /// <summary>
-    /// Simple Logger for file logging.
-    /// </summary>
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// <summary>   Simple Logger for file logging. </summary>
+    ///
+    /// <remarks>   Msacli, 29.04.2019. </remarks>
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
     public partial class SimpleFileLogger
     {
-        protected static void Log(SimpleLogType logType, Dictionary<string, string> dictionary)
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>   Logs. </summary>
+        ///
+        /// <remarks>   Msacli, 29.04.2019. </remarks>
+        ///
+        /// <param name="logType">      Log Type. </param>
+        /// <param name="dictionary">   The dictionary. </param>
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        protected void Log(SimpleLogType logType, Dictionary<string, string> dictionary)
         {
             if (dictionary == null || dictionary.Count < 1)
                 return;
@@ -68,7 +84,15 @@
             }
         }
 
-        protected static void Log(SimpleLogType logType, params string[] messages)
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>   Logs. </summary>
+        ///
+        /// <remarks>   Msacli, 29.04.2019. </remarks>
+        ///
+        /// <param name="logType">  Log Type. </param>
+        /// <param name="messages"> A variable-length parameters list containing messages. </param>
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        protected void Log(SimpleLogType logType, params string[] messages)
         {
             if (messages == null || messages.Length < 1)
                 return;
@@ -76,7 +100,7 @@
             try
             {
                 DateTime dt = DateTime.Now;
-                StackFrame frame = new StackFrame(2, true);
+                StackFrame frame = new StackFrame(3, true);
                 MethodBase method = frame.GetMethod();
                 int line = frame.GetFileLineNumber();
                 int col = frame.GetFileColumnNumber();
@@ -123,12 +147,16 @@
             }
         }
 
-        /// <summary>
-        /// Gets Log File Name
-        /// </summary>
-        /// <param name="logType">Log Type</param>
-        /// <returns>returns Log File Name</returns>
-        protected static string GetLogFileName(SimpleLogType logType)
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>   Gets Log File Name. </summary>
+        ///
+        /// <remarks>   Msacli, 29.04.2019. </remarks>
+        ///
+        /// <param name="logType">  Log Type. </param>
+        ///
+        /// <returns>   returns Log File Name. </returns>
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        protected string GetLogFileName(SimpleLogType logType)
         {
             var logFileName = string.Empty;
 
@@ -155,7 +183,19 @@
             return logFileName;
         }
 
-        protected static string BuildLogFolderName(SimpleLogType logType, string assemblyName, string className, string methodName)
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>   Builds log folder name. </summary>
+        ///
+        /// <remarks>   Msacli, 29.04.2019. </remarks>
+        ///
+        /// <param name="logType">      Log Type. </param>
+        /// <param name="assemblyName"> Name of the assembly. </param>
+        /// <param name="className">    Name of the class. </param>
+        /// <param name="methodName">   Name of the method. </param>
+        ///
+        /// <returns>   A string. </returns>
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        protected string BuildLogFolderName(SimpleLogType logType, string assemblyName, string className, string methodName)
         {
             var assemblyFolderName = assemblyName.NormalizeString();
             var classFolderName = className.NormalizeString();
@@ -168,7 +208,7 @@
             var folderName = string.Empty;
             var logTypefolderName = GetLogTypeFolderName(logType);
 
-            if (SimpleFileLogOptions.EnableMethodGrouping)
+            if (this.EnableMethodGrouping)
                 folderName = $"{AppLoggingValues.AssemblyDirectory}/{assemblyFolderName}/{classFolderName}/{methodFolderName}/{logTypefolderName}";
             else
                 folderName = $"{AppLoggingValues.AssemblyDirectory}/{logTypefolderName}/{assemblyFolderName}/{classFolderName}/{methodFolderName}";
@@ -176,7 +216,16 @@
             return folderName;
         }
 
-        protected static string GetLogTypeFolderName(SimpleLogType logType)
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>   Gets log type folder name. </summary>
+        ///
+        /// <remarks>   Msacli, 29.04.2019. </remarks>
+        ///
+        /// <param name="logType">  Log Type. </param>
+        ///
+        /// <returns>   The log type folder name. </returns>
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        protected string GetLogTypeFolderName(SimpleLogType logType)
         {
             var s = string.Empty;
 
@@ -201,7 +250,16 @@
             return s;
         }
 
-        protected static List<string> DictionaryToList(Dictionary<string, string> dictionary)
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>   Dictionary to list. </summary>
+        ///
+        /// <remarks>   Msacli, 29.04.2019. </remarks>
+        ///
+        /// <param name="dictionary">   The dictionary. </param>
+        ///
+        /// <returns>   A List&lt;string&gt; </returns>
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        protected List<string> DictionaryToList(Dictionary<string, string> dictionary)
         {
             var list = new List<string> { };
 

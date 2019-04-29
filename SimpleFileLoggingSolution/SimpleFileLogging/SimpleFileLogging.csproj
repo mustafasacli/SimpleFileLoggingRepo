@@ -48,16 +48,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppLoggingValues.cs" />
-    <Compile Include="InternalFileLogger.cs" />
-    <Compile Include="SimpleFileLoggerSub.cs" />
-    <Compile Include="SimpleFileLogger.cs" />
-    <Compile Include="SimpleFileLoggerInfo.cs" />
-    <Compile Include="SimpleFileLoggerDebug.cs" />
-    <Compile Include="LoggingStringExtension.cs" />
+    <Compile Include="Constants\AppLoggingValues.cs" />
+    <Compile Include="Interfaces\ISimpleLogger.cs" />
+    <Compile Include="Logging\InternalFileLogger.cs" />
+    <Compile Include="Logging\MLogger.cs" />
+    <Compile Include="Logging\SimpleFileLoggerSub.cs" />
+    <Compile Include="Logging\SimpleFileLogger.cs" />
+    <Compile Include="Logging\SimpleFileLoggerInfo.cs" />
+    <Compile Include="Logging\SimpleFileLoggerDebug.cs" />
+    <Compile Include="Extensions\LoggingStringExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimpleFileLogOptions.cs" />
-    <Compile Include="SimpleLogType.cs" />
+    <Compile Include="Options\SimpleFileLogOptions.cs" />
+    <Compile Include="Enums\SimpleLogType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="simplefilelogging.snk" />

@@ -11,7 +11,7 @@
         /// Logs info to info log file.
         /// </summary>
         /// <param name="messages">Messages to log</param>
-        public static void Info(params string[] messages)
+        public void Info(params string[] messages)
         {
             Log(SimpleLogType.Info, messages);
         }
@@ -20,7 +20,7 @@
         /// Logs info dictionary to log file.
         /// </summary>
         /// <param name="dictionary">Dictionary for logging</param>
-        public static void Info(Dictionary<string, string> dictionary)
+        public void Info(Dictionary<string, string> dictionary)
         {
             Log(SimpleLogType.Info, dictionary);
         }

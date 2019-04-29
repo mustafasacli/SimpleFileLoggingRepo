@@ -11,7 +11,7 @@
         /// Logs debug info to debug log file.
         /// </summary>
         /// <param name="messages">Messages to log</param>
-        public static void Debug(params string[] messages)
+        public void Debug(params string[] messages)
         {
             Log(SimpleLogType.Debug, messages);
         }
@@ -20,7 +20,7 @@
         /// Logs debug info dictionary to debug log file.
         /// </summary>
         /// <param name="dictionary">Dictionary for logging</param>
-        public static void Debug(Dictionary<string, string> dictionary)
+        public void Debug(Dictionary<string, string> dictionary)
         {
             Log(SimpleLogType.Debug, dictionary);
         }

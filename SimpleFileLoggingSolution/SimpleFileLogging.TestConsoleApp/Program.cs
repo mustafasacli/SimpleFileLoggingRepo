@@ -1,4 +1,5 @@
 ﻿using SimpleFileLogging;
+using SimpleFileLogging.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,27 +12,27 @@ namespace SimpleFileLogging.TestConsoleApp
     {
         static void Main(string[] args)
         {
-            SimpleFileLogOptions.EnableMethodGrouping = false;
-            SimpleFileLogger.Info("Program started1.");
-            SimpleFileLogger.Debug("Program started1.");
+            MLogger.EnableMethodGrouping = false;
+            MLogger.Info("Program started1.");
+            MLogger.Debug("Program started1.");
 
-            SimpleFileLogger.Info("Program finished1.");
-            SimpleFileLogger.Debug("Program finished1.");
+            MLogger.Info("Program finished1.");
+            MLogger.Debug("Program finished1.");
             try
             {
                 throw new Exception("something something is going to dark side1.");
             }
             catch (Exception e)
             {
-                SimpleFileLogger.LogError(e);
+                MLogger.LogError(e);
             }
 
-            SimpleFileLogOptions.EnableMethodGrouping = true;
-            SimpleFileLogger.Info("Program started2.");
-            SimpleFileLogger.Debug("Program started2.");
+            MLogger.EnableMethodGrouping = true;
+            MLogger.Info("Program started2.");
+            MLogger.Debug("Program started2.");
 
-            SimpleFileLogger.Info("Program finished2.");
-            SimpleFileLogger.Debug("Program finished2.");
+            MLogger.Info("Program finished2.");
+            MLogger.Debug("Program finished2.");
 
             try
             {
@@ -39,7 +40,7 @@ namespace SimpleFileLogging.TestConsoleApp
             }
             catch (Exception e)
             {
-                SimpleFileLogger.LogError(e);
+                MLogger.LogError(e);
             }
 
             Console.ReadKey();
