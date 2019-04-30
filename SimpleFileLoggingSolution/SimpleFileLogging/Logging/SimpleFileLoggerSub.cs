@@ -100,7 +100,7 @@ namespace SimpleFileLogging
             try
             {
                 DateTime dt = DateTime.Now;
-                StackFrame frame = new StackFrame(3, true);
+                StackFrame frame = new StackFrame(2, true);
                 MethodBase method = frame.GetMethod();
                 int line = frame.GetFileLineNumber();
                 int col = frame.GetFileColumnNumber();
