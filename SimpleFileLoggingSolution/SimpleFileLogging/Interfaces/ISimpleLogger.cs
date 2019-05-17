@@ -6,6 +6,7 @@
 
 namespace SimpleFileLogging.Interfaces
 {
+    using Enums;
     using System;
     using System.Collections.Generic;
 
@@ -16,6 +17,14 @@ namespace SimpleFileLogging.Interfaces
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     public interface ISimpleLogger
     {
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>   Gets or sets the type of the simple log date format. </summary>
+        ///
+        /// <value> The type of the simple log date format. </value>
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        SimpleLogDateFormatTypes SimpleLogDateFormatType
+        { get; set; }
+
         /// <summary>
         /// Enables Method Grouping
         /// if it is true AssemblyFolder\ClassName\MethodName\Error-Info-Debug\logfile.

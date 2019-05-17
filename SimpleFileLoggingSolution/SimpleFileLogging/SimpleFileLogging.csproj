@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\AppLoggingValues.cs" />
+    <Compile Include="Enums\SimpleLogDateFormatTypes.cs" />
     <Compile Include="Interfaces\ISimpleLogger.cs" />
     <Compile Include="Logging\InternalFileLogger.cs" />
     <Compile Include="Logging\SimpleFileLoggerSub.cs" />

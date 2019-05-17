@@ -6,12 +6,13 @@
 
 namespace SimpleFileLogging
 {
+    using SimpleFileLogging.Enums;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
-    using System.Reflection;
     using System.Linq;
+    using System.Reflection;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     /// <summary>   Simple Logger for file logging. </summary>
@@ -159,28 +160,84 @@ namespace SimpleFileLogging
         protected string GetLogFileName(SimpleLogType logType)
         {
             var logFileName = string.Empty;
-
-            var dateString = DateTime.Now.ToString(AppLoggingValues.LogFileDateFormat);
-
             switch (logType)
             {
                 case SimpleLogType.Error:
-                    logFileName = string.Format(AppLoggingValues.ErrorLogFileNameFormat, dateString);
+                    logFileName = AppLoggingValues.ErrorLogFileNameFormat;
                     break;
 
                 case SimpleLogType.Info:
-                    logFileName = string.Format(AppLoggingValues.InfoLogFileNameFormat, dateString);
+                    logFileName = AppLoggingValues.InfoLogFileNameFormat;
                     break;
 
                 case SimpleLogType.Debug:
-                    logFileName = string.Format(AppLoggingValues.DebugLogFileNameFormat, dateString);
+                    logFileName = AppLoggingValues.DebugLogFileNameFormat;
                     break;
 
                 default:
                     break;
             }
 
+            var dateString = string.Empty;
+            if (this.SimpleLogDateFormatType == SimpleLogDateFormatTypes.None)
+                logFileName = logFileName.Replace('-', '\0');
+            else
+                dateString = DateTime.Now.ToString(GetFileDateFormat(this.SimpleLogDateFormatType));
+            //if (this.SimpleLogDateFormatType != SimpleLogDateFormatTypes.None)
+            //dateString = DateTime.Now.ToString(GetFileDateFormat(this.SimpleLogDateFormatType)); //AppLoggingValues.LogFileDateFormat);
+
+            logFileName = string.Format(logFileName, dateString);
+
             return logFileName;
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>   Gets file date format. </summary>
+        ///
+        /// <remarks>   Msacli, 17.05.2019. </remarks>
+        ///
+        /// <param name="simpleLogDateFormatType">  Type of the simple log date format. </param>
+        ///
+        /// <returns>   The file date format. </returns>
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        protected string GetFileDateFormat(SimpleLogDateFormatTypes simpleLogDateFormatType)
+        {
+            var s = string.Empty;
+
+            switch (simpleLogDateFormatType)
+            {
+                case SimpleLogDateFormatTypes.None:
+                    break;
+
+                case SimpleLogDateFormatTypes.Second:
+                    s = "yyyy-MM-dd-HH-mm-ss";
+                    break;
+
+                case SimpleLogDateFormatTypes.Minute:
+                    s = "yyyy-MM-dd-HH-mm";
+                    break;
+
+                case SimpleLogDateFormatTypes.Hour:
+                    s = "yyyy-MM-dd-HH";
+                    break;
+
+                case SimpleLogDateFormatTypes.Day:
+                    s = "yyyy-MM-dd";
+                    break;
+
+                case SimpleLogDateFormatTypes.Month:
+                    s = "yyyy-MM";
+                    break;
+
+                case SimpleLogDateFormatTypes.Year:
+                    s = "yyyy";
+                    break;
+
+                default:
+                    break;
+            }
+
+            return s;
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////

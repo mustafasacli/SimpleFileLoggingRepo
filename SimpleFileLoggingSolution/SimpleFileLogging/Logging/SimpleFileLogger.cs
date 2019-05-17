@@ -1,5 +1,6 @@
 ﻿namespace SimpleFileLogging
 {
+    using Enums;
     using Interfaces;
     using System;
     using System.Collections.Generic;
@@ -22,6 +23,14 @@
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         public static ISimpleLogger Instance
         { get { return lazyLogger.Value; } }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>   Gets or sets the type of the simple log date format. </summary>
+        ///
+        /// <value> The type of the simple log date format. </value>
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        public SimpleLogDateFormatTypes SimpleLogDateFormatType
+        { get; set; } = SimpleLogDateFormatTypes.None;
 
         /// <summary>
         /// Enables Method Grouping if it is true
