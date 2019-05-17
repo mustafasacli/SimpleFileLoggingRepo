@@ -1,4 +1,5 @@
 ﻿using SimpleFileLogging;
+using SimpleFileLogging.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace SimpleFileLogging.TestConsoleApp
                 logger.LogError(e);
             }
 
+            logger.SimpleLogDateFormatType = SimpleLogDateFormatTypes.Minute;
             logger.EnableMethodGrouping = true;
             logger.Info("Program started2.");
             logger.Debug("Program started2.");

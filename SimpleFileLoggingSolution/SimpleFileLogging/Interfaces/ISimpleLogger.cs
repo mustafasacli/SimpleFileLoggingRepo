@@ -22,7 +22,7 @@ namespace SimpleFileLogging.Interfaces
         ///
         /// <value> The type of the simple log date format. </value>
         ////////////////////////////////////////////////////////////////////////////////////////////////////
-        SimpleLogDateFormatTypes SimpleLogDateFormatType
+        SimpleLogDateFormatTypes LogDateFormatType
         { get; set; }
 
         /// <summary>
