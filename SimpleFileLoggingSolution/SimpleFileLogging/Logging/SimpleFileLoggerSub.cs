@@ -179,10 +179,11 @@ namespace SimpleFileLogging
             }
 
             var dateString = string.Empty;
-            if (this.SimpleLogDateFormatType == SimpleLogDateFormatTypes.None)
+            if (this.LogDateFormatType == SimpleLogDateFormats.None)
                 logFileName = logFileName.Replace('-', '\0');
             else
-                dateString = DateTime.Now.ToString(GetFileDateFormat(this.SimpleLogDateFormatType));
+                dateString = DateTime.Now.ToString(GetFileDateFormat(this.LogDateFormatType));
+
             //if (this.SimpleLogDateFormatType != SimpleLogDateFormatTypes.None)
             //dateString = DateTime.Now.ToString(GetFileDateFormat(this.SimpleLogDateFormatType)); //AppLoggingValues.LogFileDateFormat);
 
@@ -200,36 +201,36 @@ namespace SimpleFileLogging
         ///
         /// <returns>   The file date format. </returns>
         ////////////////////////////////////////////////////////////////////////////////////////////////////
-        protected string GetFileDateFormat(SimpleLogDateFormatTypes simpleLogDateFormatType)
+        protected string GetFileDateFormat(SimpleLogDateFormats simpleLogDateFormatType)
         {
             var s = string.Empty;
 
             switch (simpleLogDateFormatType)
             {
-                case SimpleLogDateFormatTypes.None:
+                case SimpleLogDateFormats.None:
                     break;
 
-                case SimpleLogDateFormatTypes.Second:
+                case SimpleLogDateFormats.Second:
                     s = "yyyy-MM-dd-HH-mm-ss";
                     break;
 
-                case SimpleLogDateFormatTypes.Minute:
+                case SimpleLogDateFormats.Minute:
                     s = "yyyy-MM-dd-HH-mm";
                     break;
 
-                case SimpleLogDateFormatTypes.Hour:
+                case SimpleLogDateFormats.Hour:
                     s = "yyyy-MM-dd-HH";
                     break;
 
-                case SimpleLogDateFormatTypes.Day:
+                case SimpleLogDateFormats.Day:
                     s = "yyyy-MM-dd";
                     break;
 
-                case SimpleLogDateFormatTypes.Month:
+                case SimpleLogDateFormats.Month:
                     s = "yyyy-MM";
                     break;
 
-                case SimpleLogDateFormatTypes.Year:
+                case SimpleLogDateFormats.Year:
                     s = "yyyy";
                     break;
 

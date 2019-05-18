@@ -53,30 +53,30 @@
             
              <value> The pathname of the assembly directory. </value>
         </member>
-        <member name="T:SimpleFileLogging.Enums.SimpleLogDateFormatTypes">
+        <member name="T:SimpleFileLogging.Enums.SimpleLogDateFormats">
              <summary>   Values that represent simple log date format types. </summary>
             
              <remarks>   Msacli, 17.05.2019. </remarks>
         </member>
-        <member name="F:SimpleFileLogging.Enums.SimpleLogDateFormatTypes.None">
+        <member name="F:SimpleFileLogging.Enums.SimpleLogDateFormats.None">
             <summary>   An enum constant representing the none option. </summary>
         </member>
-        <member name="F:SimpleFileLogging.Enums.SimpleLogDateFormatTypes.Second">
+        <member name="F:SimpleFileLogging.Enums.SimpleLogDateFormats.Second">
             <summary>   An enum constant representing the second option. </summary>
         </member>
-        <member name="F:SimpleFileLogging.Enums.SimpleLogDateFormatTypes.Minute">
+        <member name="F:SimpleFileLogging.Enums.SimpleLogDateFormats.Minute">
             <summary>   An enum constant representing the minute option. </summary>
         </member>
-        <member name="F:SimpleFileLogging.Enums.SimpleLogDateFormatTypes.Hour">
+        <member name="F:SimpleFileLogging.Enums.SimpleLogDateFormats.Hour">
             <summary>   An enum constant representing the hour option. </summary>
         </member>
-        <member name="F:SimpleFileLogging.Enums.SimpleLogDateFormatTypes.Day">
+        <member name="F:SimpleFileLogging.Enums.SimpleLogDateFormats.Day">
             <summary>   An enum constant representing the day option. </summary>
         </member>
-        <member name="F:SimpleFileLogging.Enums.SimpleLogDateFormatTypes.Month">
+        <member name="F:SimpleFileLogging.Enums.SimpleLogDateFormats.Month">
             <summary>   An enum constant representing the month option. </summary>
         </member>
-        <member name="F:SimpleFileLogging.Enums.SimpleLogDateFormatTypes.Year">
+        <member name="F:SimpleFileLogging.Enums.SimpleLogDateFormats.Year">
             <summary>   An enum constant representing the year option. </summary>
         </member>
         <member name="T:SimpleFileLogging.Interfaces.ISimpleLogger">
@@ -84,7 +84,7 @@
             
              <remarks>   Msacli, 29.04.2019. </remarks>
         </member>
-        <member name="P:SimpleFileLogging.Interfaces.ISimpleLogger.SimpleLogDateFormatType">
+        <member name="P:SimpleFileLogging.Interfaces.ISimpleLogger.LogDateFormatType">
              <summary>   Gets or sets the type of the simple log date format. </summary>
             
              <value> The type of the simple log date format. </value>
@@ -205,7 +205,7 @@
             
              <returns>   returns Log File Name. </returns>
         </member>
-        <member name="M:SimpleFileLogging.SimpleFileLogger.GetFileDateFormat(SimpleFileLogging.Enums.SimpleLogDateFormatTypes)">
+        <member name="M:SimpleFileLogging.SimpleFileLogger.GetFileDateFormat(SimpleFileLogging.Enums.SimpleLogDateFormats)">
              <summary>   Gets file date format. </summary>
             
              <remarks>   Msacli, 17.05.2019. </remarks>
@@ -249,7 +249,7 @@
             
              <value> The instance. </value>
         </member>
-        <member name="P:SimpleFileLogging.SimpleFileLogger.SimpleLogDateFormatType">
+        <member name="P:SimpleFileLogging.SimpleFileLogger.LogDateFormatType">
              <summary>   Gets or sets the type of the simple log date format. </summary>
             
              <value> The type of the simple log date format. </value>

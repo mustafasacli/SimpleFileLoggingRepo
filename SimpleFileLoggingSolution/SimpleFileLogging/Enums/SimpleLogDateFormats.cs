@@ -11,7 +11,7 @@ namespace SimpleFileLogging.Enums
     ///
     /// <remarks>   Msacli, 17.05.2019. </remarks>
     ////////////////////////////////////////////////////////////////////////////////////////////////////
-    public enum SimpleLogDateFormatTypes : byte
+    public enum SimpleLogDateFormats : byte
     {
         /// <summary>   An enum constant representing the none option. </summary>
         None = 0,

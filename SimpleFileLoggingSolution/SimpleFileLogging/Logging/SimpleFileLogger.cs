@@ -29,8 +29,8 @@
         ///
         /// <value> The type of the simple log date format. </value>
         ////////////////////////////////////////////////////////////////////////////////////////////////////
-        public SimpleLogDateFormatTypes LogDateFormatType
-        { get; set; } = SimpleLogDateFormatTypes.Second;
+        public SimpleLogDateFormats LogDateFormatType
+        { get; set; } = SimpleLogDateFormats.Second;
 
         /// <summary>
         /// Enables Method Grouping if it is true

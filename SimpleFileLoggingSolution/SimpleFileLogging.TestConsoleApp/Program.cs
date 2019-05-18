@@ -29,7 +29,7 @@ namespace SimpleFileLogging.TestConsoleApp
                 logger.LogError(e);
             }
 
-            logger.SimpleLogDateFormatType = SimpleLogDateFormatTypes.Minute;
+            logger.LogDateFormatType = SimpleLogDateFormats.Minute;
             logger.EnableMethodGrouping = true;
             logger.Info("Program started2.");
             logger.Debug("Program started2.");
