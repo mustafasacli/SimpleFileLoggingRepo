@@ -75,7 +75,7 @@
         /// <param name="messages">Messages to log</param>
         public void LogError(params string[] messages)
         {
-            Log(SimpleLogType.Debug, messages);
+            Log(SimpleLogType.Error, messages);
         }
 
         /// <summary>
@@ -104,7 +104,7 @@
         /// <param name="messages">Messages to log</param>
         public void Error(params string[] messages)
         {
-            Log(SimpleLogType.Debug, messages);
+            Log(SimpleLogType.Error, messages);
         }
     }
 }
