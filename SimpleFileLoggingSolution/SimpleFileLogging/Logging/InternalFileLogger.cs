@@ -15,7 +15,7 @@ namespace SimpleFileLogging
     ///
     /// <remarks>   Msacli, 29.04.2019. </remarks>
     ////////////////////////////////////////////////////////////////////////////////////////////////////
-    internal class LoggingFileOperator
+    public class LoggingFileOperator
     {
         /// <summary>   The lazy operation. </summary>
         private static Lazy<LoggingFileOperator> lazyOp =
