@@ -57,8 +57,11 @@ namespace SimpleFileLogging
 
                 using (StreamWriter writer = new StreamWriter(
                            new FileStream(filePath, fMode))
-                { AutoFlush = true })
+                )
                 {
+                    if (rows.Count < 5)
+                        writer.AutoFlush = true;
+
                     if (!writeLine)
                     {
                         string str;
@@ -82,6 +85,9 @@ namespace SimpleFileLogging
                             writer.WriteLine(s ?? string.Empty);
                         });
                     }
+
+                    if (rows.Count >= 5)
+                        writer.Flush();
                 }
             }
             catch (Exception e)

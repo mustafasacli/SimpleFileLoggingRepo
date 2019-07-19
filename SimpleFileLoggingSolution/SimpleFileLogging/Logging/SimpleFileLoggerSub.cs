@@ -29,7 +29,8 @@ namespace SimpleFileLogging
         /// <param name="logType">      Log Type. </param>
         /// <param name="dictionary">   The dictionary. </param>
         ////////////////////////////////////////////////////////////////////////////////////////////////////
-        protected void Log(SimpleLogType logType, Dictionary<string, string> dictionary)
+        protected void Log(SimpleLogType logType,
+            Dictionary<string, string> dictionary)
         {
             if (dictionary == null || dictionary.Count < 1)
                 return;
@@ -39,13 +40,13 @@ namespace SimpleFileLogging
                 DateTime dt = DateTime.Now;
                 StackFrame frame = new StackFrame(2, true);
                 MethodBase method = frame.GetMethod();
-                int line = frame.GetFileLineNumber();
-                int col = frame.GetFileColumnNumber();
 
                 string assemblyName = method.Module.Assembly.FullName;
                 string className = method.ReflectedType.Name;
                 string assemblyFileName = frame.GetFileName();
                 string methodName = method.Name;
+                int line = frame.GetFileLineNumber();
+                int col = frame.GetFileColumnNumber();
 
                 var debugFileName = GetLogFileName(logType);
                 var folderName = BuildLogFolderName(logType, method.Module.Assembly.GetName().Name, className, methodName);
@@ -64,15 +65,16 @@ namespace SimpleFileLogging
                 string fileName = $"{folderName}/{debugFileName}";
 
                 var rows = new List<string>
-                    {
-                        $"Time : {dt.ToString(AppLoggingValues.GeneralDateFormat)}",
-                        $"Assembly : {assemblyName}",
-                        $"Assembly File Name : {assemblyFileName}",
-                        $"Class : {className}",
-                        $"Method Name : {methodName}",
-                        $"Line : {line}",
-                        $"Column : {col}"
-                    };
+                {
+                        $"Time : {dt.ToString(AppLoggingValues.GeneralDateFormat)}"
+                };
+
+                rows.Add($"Assembly : {assemblyName}");
+                rows.Add($"Assembly File Name : {assemblyFileName}");
+                rows.Add($"Class : {className}");
+                rows.Add($"Method Name : {methodName}");
+                rows.Add($"Line : {line}");
+                rows.Add($"Column : {col}");
 
                 var additions = DictionaryToList(dictionary);
                 rows.AddRange(additions);
@@ -98,21 +100,29 @@ namespace SimpleFileLogging
             if (messages == null || messages.Length < 1)
                 return;
 
+            var checkMessages = messages
+                .ToList()
+                .TrueForAll(q => string.IsNullOrWhiteSpace(q));
+
+            if (checkMessages)
+                return;
+
             try
             {
                 DateTime dt = DateTime.Now;
                 StackFrame frame = new StackFrame(2, true);
                 MethodBase method = frame.GetMethod();
-                int line = frame.GetFileLineNumber();
-                int col = frame.GetFileColumnNumber();
 
                 var assemblyName = method.Module.Assembly.FullName;
                 var className = method.ReflectedType.Name;
                 var assemblyFileName = frame.GetFileName();
                 var methodName = method.Name;
+                int line = frame.GetFileLineNumber();
+                int col = frame.GetFileColumnNumber();
 
                 var errorFileName = GetLogFileName(logType);
-                var folderName = BuildLogFolderName(logType, method.Module.Assembly.GetName().Name, className, methodName);
+                var folderName = BuildLogFolderName(logType,
+                    method.Module.Assembly.GetName().Name, className, methodName);
 
                 try
                 {
@@ -128,15 +138,16 @@ namespace SimpleFileLogging
                 string fileName = $"{folderName}/{errorFileName}";
 
                 var rows = new List<string>
-                    {
-                        $"Time : {dt.ToString(AppLoggingValues.GeneralDateFormat)}",
-                        $"Assembly : {assemblyName}",
-                        $"Assembly File Name : {assemblyFileName}",
-                        $"Class : {className}",
-                        $"Method Name : {methodName}",
-                        $"Line : {line}",
-                        $"Column : {col}"
-                    };
+                {
+                    $"Time : {dt.ToString(AppLoggingValues.GeneralDateFormat)}"
+                };
+
+                rows.Add($"Assembly : {assemblyName}");
+                rows.Add($"Assembly File Name : {assemblyFileName}");
+                rows.Add($"Class : {className}");
+                rows.Add($"Method Name : {methodName}");
+                rows.Add($"Line : {line}");
+                rows.Add($"Column : {col}");
 
                 rows.AddRange(messages);
                 rows.Add(AppLoggingValues.Lines);
@@ -260,7 +271,9 @@ namespace SimpleFileLogging
             var methodFolderName = methodName.NormalizeString();
 
             assemblyFolderName = string.IsNullOrWhiteSpace(assemblyFolderName) ? AppLoggingValues.StaticFolderName : assemblyFolderName;
+
             classFolderName = string.IsNullOrWhiteSpace(classFolderName) ? AppLoggingValues.StaticFolderName : classFolderName;
+
             methodFolderName = string.IsNullOrWhiteSpace(methodFolderName) ? AppLoggingValues.StaticFolderName : methodFolderName;
 
             var folderName = string.Empty;

@@ -95,6 +95,11 @@
                 $"Exception Data : {e.ToString()}",
             };
 
+            if (messages != null && messages.Length > 0)
+            {
+                list.AddRange(messages);
+            }
+
             Log(SimpleLogType.Error, list.ToArray());
         }
 

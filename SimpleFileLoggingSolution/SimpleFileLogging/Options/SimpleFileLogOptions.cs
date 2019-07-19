@@ -1,7 +1,7 @@
 ﻿namespace SimpleFileLogging
 {
     /// <summary>
-    /// Defining Logging Options 
+    /// Defining Logging Options
     /// </summary>
     public static class SimpleFileLogOptions
     {

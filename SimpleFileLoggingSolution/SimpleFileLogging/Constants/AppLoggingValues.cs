@@ -21,8 +21,10 @@ namespace SimpleFileLogging
 
         /// <summary>   The error log file name format. </summary>
         internal static readonly string ErrorLogFileNameFormat = "error-{0}.log";
+
         /// <summary>   The ınfo log file name format. </summary>
         internal static readonly string InfoLogFileNameFormat = "info-{0}.log";
+
         /// <summary>   The debug log file name format. </summary>
         internal static readonly string DebugLogFileNameFormat = "debug-{0}.log";
 
@@ -40,10 +42,13 @@ namespace SimpleFileLogging
 
         /// <summary>   Pathname of the error folder. </summary>
         internal static readonly string ErrorFolderName = "Errors";
+
         /// <summary>   Pathname of the event folder. </summary>
         internal static readonly string EventFolderName = "Events";
+
         /// <summary>   Pathname of the ınfo folder. </summary>
         internal static readonly string InfoFolderName = "Infos";
+
         /// <summary>   Pathname of the debug folder. </summary>
         internal static readonly string DebugFolderName = "Debugs";
 
