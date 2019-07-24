@@ -101,10 +101,9 @@ namespace SimpleFileLogging
                 return;
 
             var checkMessages = messages
-                .ToList()
-                .TrueForAll(q => string.IsNullOrWhiteSpace(q));
+                .Any(q => !string.IsNullOrWhiteSpace(q));
 
-            if (checkMessages)
+            if (!checkMessages)
                 return;
 
             try
@@ -191,7 +190,7 @@ namespace SimpleFileLogging
 
             var dateString = string.Empty;
             if (this.LogDateFormatType == SimpleLogDateFormats.None)
-                logFileName = logFileName.Replace('-', '\0');
+                logFileName = logFileName.Replace("-", string.Empty);
             else
                 dateString = DateTime.Now.ToString(GetFileDateFormat(this.LogDateFormatType));
 

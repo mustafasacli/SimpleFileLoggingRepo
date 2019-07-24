@@ -65,6 +65,7 @@ namespace SimpleFileLogging
             get
             {
                 var directory = AppDomain.CurrentDomain.BaseDirectory;
+                directory = directory.TrimEnd('\\').TrimEnd('/').TrimEnd('\\');
                 return directory;
             }
         }
