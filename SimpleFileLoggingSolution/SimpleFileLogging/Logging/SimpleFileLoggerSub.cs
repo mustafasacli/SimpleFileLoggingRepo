@@ -32,11 +32,11 @@ namespace SimpleFileLogging
         protected void Log(SimpleLogType logType,
             Dictionary<string, string> dictionary)
         {
-            if (dictionary == null || dictionary.Count < 1)
-                return;
-
             try
             {
+                if (dictionary == null || dictionary.Count < 1)
+                    return;
+
                 DateTime dt = DateTime.Now;
                 StackFrame frame = new StackFrame(2, true);
                 MethodBase method = frame.GetMethod();
@@ -58,9 +58,8 @@ namespace SimpleFileLogging
                         Directory.CreateDirectory(folderName);
                     }
                 }
-                catch (Exception)
-                {
-                }
+                catch (Exception e2)
+                { WriteException(e2); }
 
                 string fileName = $"{folderName}/{debugFileName}";
 
@@ -80,11 +79,10 @@ namespace SimpleFileLogging
                 rows.AddRange(additions);
                 rows.Add(AppLoggingValues.Lines);
 
-                LoggingFileOperator.Instance.Write(fileName, rows);
+                SimpleFileOperator.Instance.Write(fileName, rows);
             }
             catch (Exception ee)
-            {
-            }
+            { WriteException(ee); }
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -97,17 +95,17 @@ namespace SimpleFileLogging
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         protected void Log(SimpleLogType logType, params string[] messages)
         {
-            if (messages == null || messages.Length < 1)
-                return;
-
-            var checkMessages = messages
-                .Any(q => !string.IsNullOrWhiteSpace(q));
-
-            if (!checkMessages)
-                return;
-
             try
             {
+                if (messages == null || messages.Length < 1)
+                    return;
+
+                var checkMessages = messages
+                    .Any(q => !string.IsNullOrWhiteSpace(q));
+
+                if (!checkMessages)
+                    return;
+
                 DateTime dt = DateTime.Now;
                 StackFrame frame = new StackFrame(2, true);
                 MethodBase method = frame.GetMethod();
@@ -130,9 +128,8 @@ namespace SimpleFileLogging
                         Directory.CreateDirectory(folderName);
                     }
                 }
-                catch (Exception)
-                {
-                }
+                catch (Exception e2)
+                { WriteException(e2); }
 
                 string fileName = $"{folderName}/{errorFileName}";
 
@@ -151,11 +148,84 @@ namespace SimpleFileLogging
                 rows.AddRange(messages);
                 rows.Add(AppLoggingValues.Lines);
 
-                LoggingFileOperator.Instance.Write(fileName, rows);
+                SimpleFileOperator.Instance.Write(fileName, rows);
+                throw new Exception("something something going darkside.");
             }
             catch (Exception ee)
+            { WriteException(ee); }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>   Logs. </summary>
+        ///
+        /// <remarks>   Msacli, 29.04.2019. </remarks>
+        /// 
+        /// <param name="logOptions"></param>
+        /// <param name="logType"></param>
+        /// <param name="messages"> A variable-length parameters list containing messages. </param>
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        protected void LogV2(SimpleFileLogOptions logOptions, SimpleLogType logType, params string[] messages)
+        {
+            try
             {
+                if (messages == null || messages.Length < 1)
+                    return;
+
+                var checkMessages = messages
+                    .Any(q => !string.IsNullOrWhiteSpace(q));
+
+                if (!checkMessages)
+                    return;
+
+                DateTime dt = DateTime.Now;
+                StackFrame frame = new StackFrame(2, true);
+                MethodBase method = frame.GetMethod();
+
+                var assemblyName = method.Module.Assembly.FullName;
+                var className = method.ReflectedType.Name;
+                var assemblyFileName = frame.GetFileName();
+                var methodName = method.Name;
+                int line = frame.GetFileLineNumber();
+                int col = frame.GetFileColumnNumber();
+
+                var errorFileName = GetLogFileName(logType);
+                var folderName = BuildLogFolderName(logType,
+                    method.Module.Assembly.GetName().Name, className, methodName);
+
+                try
+                {
+                    if (!Directory.Exists(folderName))
+                    {
+                        Directory.CreateDirectory(folderName);
+                    }
+                }
+                catch (Exception e2)
+                { WriteException(e2); }
+
+                string fileName = $"{folderName}/{errorFileName}";
+
+                var rows = new List<string>
+                {
+                    $"Time : {dt.ToString(AppLoggingValues.GeneralDateFormat)}"
+                };
+
+                if (!logOptions.ExcludeAssemblyInfo)
+                {
+                    rows.Add($"Assembly : {assemblyName}");
+                    rows.Add($"Assembly File Name : {assemblyFileName}");
+                    rows.Add($"Class : {className}");
+                    rows.Add($"Method Name : {methodName}");
+                    rows.Add($"Line : {line}");
+                    rows.Add($"Column : {col}");
+                }
+
+                rows.AddRange(messages);
+                rows.Add(AppLoggingValues.Lines);
+
+                SimpleFileOperator.Instance.Write(fileName, rows);
             }
+            catch (Exception ee)
+            { WriteException(ee); }
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////

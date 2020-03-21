@@ -51,7 +51,7 @@
     <Compile Include="Constants\AppLoggingValues.cs" />
     <Compile Include="Enums\SimpleLogDateFormats.cs" />
     <Compile Include="Interfaces\ISimpleLogger.cs" />
-    <Compile Include="Logging\InternalFileLogger.cs" />
+    <Compile Include="Logging\SimpleFileOperator.cs" />
     <Compile Include="Logging\SimpleFileLoggerSub.cs" />
     <Compile Include="Logging\SimpleFileLogger.cs" />
     <Compile Include="Logging\SimpleFileLoggerInfo.cs" />

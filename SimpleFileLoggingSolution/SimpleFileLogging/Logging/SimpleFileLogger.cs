@@ -66,7 +66,7 @@
                 $"Exception Data : {e.ToString()}",
             };
 
-            Log(SimpleLogType.Error, list.ToArray());
+            Log(SimpleLogType.Error, list.ToArray());            
         }
 
         /// <summary>
@@ -110,6 +110,41 @@
         public void Error(params string[] messages)
         {
             Log(SimpleLogType.Error, messages);
+        }
+
+        internal void WriteException(Exception exception)
+        {
+            try
+            {
+                if (exception == null)
+                    return;
+
+                var rows = new List<string>();
+
+                Exception ex = exception;
+
+                do
+                {
+                    rows.Add("Message: " + ex.Message);
+                    rows.Add("StackTrace: " + ex.StackTrace);
+                    rows.Add("HResult: " + ex.HResult.ToString());
+                    rows.Add("Source: " + ex.Source);
+                    ex = ex.InnerException;
+
+                    if (ex != null)
+                        rows.Add("****************");
+
+                } while (ex != null);
+
+                if (rows.Count > 0)
+                    rows.Add(AppLoggingValues.Lines);
+
+                var directoryName = AppLoggingValues.AssemblyDirectory;
+                string fileFullName = string.Format("{0}/simple-log-error.log", directoryName);
+                SimpleFileOperator.Instance.Write(fileFullName, rows);
+            }
+            catch (Exception)
+            { }
         }
     }
 }

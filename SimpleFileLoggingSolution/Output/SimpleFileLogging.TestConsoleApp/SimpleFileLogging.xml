@@ -119,6 +119,7 @@
         </member>
         <member name="M:SimpleFileLogging.Interfaces.ISimpleLogger.Debug(System.String[])">
              <summary>   Debugs the given dictionary. </summary>
+             <param name="excludeAssemblyInfo">if true assembly info will not logged, else info will be logged.</param>
             
              <param name="messages"> A variable-length parameters list containing messages. </param>
         </member>
@@ -137,27 +138,27 @@
             
              <param name="dictionary">   The dictionary. </param>
         </member>
-        <member name="T:SimpleFileLogging.LoggingFileOperator">
+        <member name="T:SimpleFileLogging.SimpleFileOperator">
              <summary>   A logging file operator. </summary>
             
              <remarks>   Msacli, 29.04.2019. </remarks>
         </member>
-        <member name="F:SimpleFileLogging.LoggingFileOperator.lazyOp">
+        <member name="F:SimpleFileLogging.SimpleFileOperator.lazyOp">
             <summary>   The lazy operation. </summary>
         </member>
-        <member name="M:SimpleFileLogging.LoggingFileOperator.#ctor">
+        <member name="M:SimpleFileLogging.SimpleFileOperator.#ctor">
              <summary>
              Constructor that prevents a default instance of this class from being created.
              </summary>
             
              <remarks>   Msacli, 29.04.2019. </remarks>
         </member>
-        <member name="P:SimpleFileLogging.LoggingFileOperator.Instance">
+        <member name="P:SimpleFileLogging.SimpleFileOperator.Instance">
              <summary>   Gets the ınstance. </summary>
             
              <value> The instance. </value>
         </member>
-        <member name="M:SimpleFileLogging.LoggingFileOperator.Write(System.String,System.Collections.Generic.List{System.String},System.Boolean)">
+        <member name="M:SimpleFileLogging.SimpleFileOperator.Write(System.String,System.Collections.Generic.List{System.String},System.Boolean)">
              <summary>   Writes the given file. </summary>
             
              <remarks>   Msacli, 29.04.2019. </remarks>
@@ -194,6 +195,14 @@
              <remarks>   Msacli, 29.04.2019. </remarks>
             
              <param name="logType">  Log Type. </param>
+             <param name="messages"> A variable-length parameters list containing messages. </param>
+        </member>
+        <member name="M:SimpleFileLogging.SimpleFileLogger.LogV2(SimpleFileLogging.SimpleFileLogOptions,System.String[])">
+             <summary>   Logs. </summary>
+            
+             <remarks>   Msacli, 29.04.2019. </remarks>
+             
+             <param name="logOptions"></param>
              <param name="messages"> A variable-length parameters list containing messages. </param>
         </member>
         <member name="M:SimpleFileLogging.SimpleFileLogger.GetLogFileName(SimpleFileLogging.SimpleLogType)">
@@ -337,9 +346,21 @@
         </member>
         <member name="P:SimpleFileLogging.SimpleFileLogOptions.EnableMethodGrouping">
             <summary>
+            Gets or sets a value indicating whether EnableMethodGrouping
             Enables Method Grouping
             if it is true AssemblyFolder\ClassName\MethodName\Error-Info-Debug\logfile.
             else AssemblyFolder\Error-Info-Debug\ClassName\MethodName\logfile.
+            </summary>
+        </member>
+        <member name="P:SimpleFileLogging.SimpleFileLogOptions.LogType">
+            <summary>
+            Gets or sets the LogType
+            </summary>
+        </member>
+        <member name="P:SimpleFileLogging.SimpleFileLogOptions.ExcludeAssemblyInfo">
+            <summary>
+            Gets or sets the ExcludeAssemblyInfo
+            if true, assembly info will not be logged else will be logged.
             </summary>
         </member>
         <member name="T:SimpleFileLogging.SimpleLogType">

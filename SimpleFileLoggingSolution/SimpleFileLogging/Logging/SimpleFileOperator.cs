@@ -15,11 +15,11 @@ namespace SimpleFileLogging
     ///
     /// <remarks>   Msacli, 29.04.2019. </remarks>
     ////////////////////////////////////////////////////////////////////////////////////////////////////
-    public class LoggingFileOperator
+    public class SimpleFileOperator
     {
         /// <summary>   The lazy operation. </summary>
-        private static Lazy<LoggingFileOperator> lazyOp =
-            new Lazy<LoggingFileOperator>(() => new LoggingFileOperator());
+        private static Lazy<SimpleFileOperator> lazyOp =
+            new Lazy<SimpleFileOperator>(() => new SimpleFileOperator());
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -28,7 +28,7 @@ namespace SimpleFileLogging
         ///
         /// <remarks>   Msacli, 29.04.2019. </remarks>
         ////////////////////////////////////////////////////////////////////////////////////////////////////
-        private LoggingFileOperator()
+        private SimpleFileOperator()
         {
         }
 
@@ -37,7 +37,7 @@ namespace SimpleFileLogging
         ///
         /// <value> The instance. </value>
         ////////////////////////////////////////////////////////////////////////////////////////////////////
-        public static LoggingFileOperator Instance
+        public static SimpleFileOperator Instance
         { get { return lazyOp.Value; } }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -90,7 +90,7 @@ namespace SimpleFileLogging
                         writer.Flush();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }
