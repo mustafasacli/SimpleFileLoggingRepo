@@ -119,7 +119,6 @@
         </member>
         <member name="M:SimpleFileLogging.Interfaces.ISimpleLogger.Debug(System.String[])">
              <summary>   Debugs the given dictionary. </summary>
-             <param name="excludeAssemblyInfo">if true assembly info will not logged, else info will be logged.</param>
             
              <param name="messages"> A variable-length parameters list containing messages. </param>
         </member>
@@ -197,12 +196,13 @@
              <param name="logType">  Log Type. </param>
              <param name="messages"> A variable-length parameters list containing messages. </param>
         </member>
-        <member name="M:SimpleFileLogging.SimpleFileLogger.LogV2(SimpleFileLogging.SimpleFileLogOptions,System.String[])">
+        <member name="M:SimpleFileLogging.SimpleFileLogger.LogV2(SimpleFileLogging.SimpleFileLogOptions,SimpleFileLogging.SimpleLogType,System.String[])">
              <summary>   Logs. </summary>
             
              <remarks>   Msacli, 29.04.2019. </remarks>
              
              <param name="logOptions"></param>
+             <param name="logType"></param>
              <param name="messages"> A variable-length parameters list containing messages. </param>
         </member>
         <member name="M:SimpleFileLogging.SimpleFileLogger.GetLogFileName(SimpleFileLogging.SimpleLogType)">
@@ -276,6 +276,13 @@
             
              <remarks>   Msacli, 29.04.2019. </remarks>
         </member>
+        <member name="M:SimpleFileLogging.SimpleFileLogger.#ctor(SimpleFileLogging.Enums.SimpleLogDateFormats,System.Boolean)">
+             <summary>
+             Constructor that prevents a default instance of this class from being created.
+             </summary>
+            
+             <remarks>   Msacli, 29.04.2019. </remarks>
+        </member>
         <member name="M:SimpleFileLogging.SimpleFileLogger.LogError(System.Exception)">
             <summary>
             Logs exception details to error log file.
@@ -339,6 +346,19 @@
             
              <returns>   A string. </returns>
         </member>
+        <member name="T:SimpleFileLogging.Logging.SimpleLoggerStorage">
+            <summary>
+            SimpleLoggerStorage class. Stores ISimpleLogger instances.
+            </summary>
+        </member>
+        <member name="M:SimpleFileLogging.Logging.SimpleLoggerStorage.GetSimpleLogger(SimpleFileLogging.Enums.SimpleLogDateFormats,System.Boolean)">
+            <summary>
+            Gets the simple logger instance for given Log Date Format.
+            </summary>
+            <param name="logDateFormat">The log date format.</param>
+            <param name="enableMethodGrouping">if set to <c>true</c> [enable method grouping].</param>
+            <returns>Returns ISimpleLogger instance.</returns>
+        </member>
         <member name="T:SimpleFileLogging.SimpleFileLogOptions">
             <summary>
             Defining Logging Options
@@ -350,11 +370,6 @@
             Enables Method Grouping
             if it is true AssemblyFolder\ClassName\MethodName\Error-Info-Debug\logfile.
             else AssemblyFolder\Error-Info-Debug\ClassName\MethodName\logfile.
-            </summary>
-        </member>
-        <member name="P:SimpleFileLogging.SimpleFileLogOptions.LogType">
-            <summary>
-            Gets or sets the LogType
             </summary>
         </member>
         <member name="P:SimpleFileLogging.SimpleFileLogOptions.ExcludeAssemblyInfo">

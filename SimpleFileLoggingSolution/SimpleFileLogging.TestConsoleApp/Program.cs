@@ -1,16 +1,12 @@
-﻿using SimpleFileLogging;
-using SimpleFileLogging.Enums;
+﻿using SimpleFileLogging.Enums;
+using SimpleFileLogging.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimpleFileLogging.TestConsoleApp
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var logger = SimpleFileLogger.Instance;
 
@@ -47,6 +43,9 @@ namespace SimpleFileLogging.TestConsoleApp
             }
 
             SimpleFileLogger.Instance.Info("message1", "message2", "message3");
+
+            var dayLogger = SimpleLoggerStorage.GetSimpleLogger(SimpleLogDateFormats.Day, enableMethodGrouping: true);
+            dayLogger?.Info("message1-2", "message2-2", "message3-2");
 
             Console.ReadKey();
         }

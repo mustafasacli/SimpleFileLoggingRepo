@@ -57,6 +57,7 @@
     <Compile Include="Logging\SimpleFileLoggerInfo.cs" />
     <Compile Include="Logging\SimpleFileLoggerDebug.cs" />
     <Compile Include="Extensions\LoggingStringExtension.cs" />
+    <Compile Include="Logging\SimpleLoggerStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Options\SimpleFileLogOptions.cs" />
     <Compile Include="Enums\SimpleLogType.cs" />

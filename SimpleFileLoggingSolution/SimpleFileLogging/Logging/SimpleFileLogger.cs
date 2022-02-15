@@ -1,10 +1,10 @@
-﻿namespace SimpleFileLogging
-{
-    using Enums;
-    using Interfaces;
-    using System;
-    using System.Collections.Generic;
+﻿using SimpleFileLogging.Enums;
+using SimpleFileLogging.Interfaces;
+using System;
+using System.Collections.Generic;
 
+namespace SimpleFileLogging
+{
     /// <summary>
     /// Simple Logger for file logging.
     /// </summary>
@@ -46,8 +46,22 @@
         ///
         /// <remarks>   Msacli, 29.04.2019. </remarks>
         ////////////////////////////////////////////////////////////////////////////////////////////////////
-        private SimpleFileLogger()
+        internal SimpleFileLogger()
         {
+        }
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Constructor that prevents a default instance of this class from being created.
+        /// </summary>
+        ///
+        /// <remarks>   Msacli, 29.04.2019. </remarks>
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        internal SimpleFileLogger(SimpleLogDateFormats logDateFormat, bool enableMethodGrouping = false)
+        {
+            LogDateFormatType = logDateFormat;
+            EnableMethodGrouping = enableMethodGrouping;
         }
 
         /// <summary>
@@ -66,7 +80,7 @@
                 $"Exception Data : {e.ToString()}",
             };
 
-            Log(SimpleLogType.Error, list.ToArray());            
+            Log(SimpleLogType.Error, list.ToArray());
         }
 
         /// <summary>
@@ -143,7 +157,7 @@
                 string fileFullName = string.Format("{0}/simple-log-error.log", directoryName);
                 SimpleFileOperator.Instance.Write(fileFullName, rows);
             }
-            catch (Exception)
+            catch
             { }
         }
     }

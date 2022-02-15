@@ -1,15 +1,14 @@
 ﻿////////////////////////////////////////////////////////////////////////////////////////////////////
-// file:	Logging\InternalFileLogger.cs
+// file:	SimpleFileLogging\SimpleFileOperator.cs
 //
-// summary:	Implements the internal file logger class
+// summary:	Implements the public file operator class
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace SimpleFileLogging
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     /// <summary>   A logging file operator. </summary>
     ///
@@ -59,8 +58,8 @@ namespace SimpleFileLogging
                            new FileStream(filePath, fMode))
                 )
                 {
-                    if (rows.Count < 5)
-                        writer.AutoFlush = true;
+                    bool autoFlush = rows.Count < 5;
+                    writer.AutoFlush = autoFlush;
 
                     if (!writeLine)
                     {
@@ -86,11 +85,11 @@ namespace SimpleFileLogging
                         });
                     }
 
-                    if (rows.Count >= 5)
+                    if (!autoFlush)
                         writer.Flush();
                 }
             }
-            catch (Exception)
+            catch
             {
                 throw;
             }

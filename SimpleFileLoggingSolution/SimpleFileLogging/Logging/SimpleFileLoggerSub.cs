@@ -3,17 +3,16 @@
 //
 // summary:	Implements the simple file logger sub class
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+using SimpleFileLogging.Enums;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace SimpleFileLogging
 {
-    using SimpleFileLogging.Enums;
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     /// <summary>   Simple Logger for file logging. </summary>
     ///
@@ -149,7 +148,6 @@ namespace SimpleFileLogging
                 rows.Add(AppLoggingValues.Lines);
 
                 SimpleFileOperator.Instance.Write(fileName, rows);
-                throw new Exception("something something going darkside.");
             }
             catch (Exception ee)
             { WriteException(ee); }
@@ -264,9 +262,6 @@ namespace SimpleFileLogging
             else
                 dateString = DateTime.Now.ToString(GetFileDateFormat(this.LogDateFormatType));
 
-            //if (this.SimpleLogDateFormatType != SimpleLogDateFormatTypes.None)
-            //dateString = DateTime.Now.ToString(GetFileDateFormat(this.SimpleLogDateFormatType)); //AppLoggingValues.LogFileDateFormat);
-
             logFileName = string.Format(logFileName, dateString);
 
             return logFileName;
@@ -283,7 +278,7 @@ namespace SimpleFileLogging
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         protected string GetFileDateFormat(SimpleLogDateFormats simpleLogDateFormatType)
         {
-            var s = string.Empty;
+            var fileDateFormat = string.Empty;
 
             switch (simpleLogDateFormatType)
             {
@@ -291,34 +286,34 @@ namespace SimpleFileLogging
                     break;
 
                 case SimpleLogDateFormats.Second:
-                    s = "yyyy-MM-dd-HH-mm-ss";
+                    fileDateFormat = "yyyy-MM-dd-HH-mm-ss";
                     break;
 
                 case SimpleLogDateFormats.Minute:
-                    s = "yyyy-MM-dd-HH-mm";
+                    fileDateFormat = "yyyy-MM-dd-HH-mm";
                     break;
 
                 case SimpleLogDateFormats.Hour:
-                    s = "yyyy-MM-dd-HH";
+                    fileDateFormat = "yyyy-MM-dd-HH";
                     break;
 
                 case SimpleLogDateFormats.Day:
-                    s = "yyyy-MM-dd";
+                    fileDateFormat = "yyyy-MM-dd";
                     break;
 
                 case SimpleLogDateFormats.Month:
-                    s = "yyyy-MM";
+                    fileDateFormat = "yyyy-MM";
                     break;
 
                 case SimpleLogDateFormats.Year:
-                    s = "yyyy";
+                    fileDateFormat = "yyyy";
                     break;
 
                 default:
                     break;
             }
 
-            return s;
+            return fileDateFormat;
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -367,27 +362,27 @@ namespace SimpleFileLogging
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         protected string GetLogTypeFolderName(SimpleLogType logType)
         {
-            var s = string.Empty;
+            var logTypeFolderName = string.Empty;
 
             switch (logType)
             {
                 case SimpleLogType.Error:
-                    s = AppLoggingValues.ErrorFolderName;
+                    logTypeFolderName = AppLoggingValues.ErrorFolderName;
                     break;
 
                 case SimpleLogType.Info:
-                    s = AppLoggingValues.InfoFolderName;
+                    logTypeFolderName = AppLoggingValues.InfoFolderName;
                     break;
 
                 case SimpleLogType.Debug:
-                    s = AppLoggingValues.DebugFolderName;
+                    logTypeFolderName = AppLoggingValues.DebugFolderName;
                     break;
 
                 default:
                     break;
             }
 
-            return s;
+            return logTypeFolderName;
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
