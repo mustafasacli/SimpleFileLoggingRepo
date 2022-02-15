@@ -8,7 +8,7 @@
         <projectUrl>http://github.com/mustafasacli/SimpleFileLoggingRepo</projectUrl>
         <license type="expression">Apache-2.0</license>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <releaseNotes>Error fixing for LogDateFormatType.None option.</releaseNotes>
+        <releaseNotes>Code improvements. SimpleLoggerStorage class added to create instances for different LogDateFormat logger.</releaseNotes>
         <description>Supports Error, Info and Debug Logging ops into files.</description>
         <copyright>Copyright ©2019 Msacli Corporation</copyright>
         <tags>Logging Error Info Debug File</tags>
