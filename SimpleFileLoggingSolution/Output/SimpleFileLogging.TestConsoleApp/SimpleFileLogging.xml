@@ -142,9 +142,6 @@
             
              <remarks>   Msacli, 29.04.2019. </remarks>
         </member>
-        <member name="F:SimpleFileLogging.SimpleFileOperator.lazyOp">
-            <summary>   The lazy operation. </summary>
-        </member>
         <member name="M:SimpleFileLogging.SimpleFileOperator.#ctor">
              <summary>
              Constructor that prevents a default instance of this class from being created.
@@ -157,7 +154,7 @@
             
              <value> The instance. </value>
         </member>
-        <member name="M:SimpleFileLogging.SimpleFileOperator.Write(System.String,System.Collections.Generic.List{System.String},System.Boolean)">
+        <member name="M:SimpleFileLogging.SimpleFileOperator.Write(System.String,System.Collections.Generic.List{System.String},System.Boolean,System.UInt32)">
              <summary>   Writes the given file. </summary>
             
              <remarks>   Msacli, 29.04.2019. </remarks>
@@ -165,6 +162,22 @@
              <param name="filePath">     Full pathname of the file. </param>
              <param name="rows">         The rows. </param>
              <param name="writeLine">    (Optional) True to write line. </param>
+             <param name="autoFlushLineCount">Line count for file auto flush.</param>
+        </member>
+        <member name="M:SimpleFileLogging.SimpleFileOperator.ReadLines(System.String)">
+            <summary>
+            Reads the lines.
+            </summary>
+            <param name="fileName">Name of the file.</param>
+            <returns>Returns lines as string list.</returns>
+        </member>
+        <member name="M:SimpleFileLogging.SimpleFileOperator.ReadLastLine(System.String,System.Boolean)">
+            <summary>
+            Read Last the line.
+            </summary>
+            <param name="fileName">Name of the file.</param>
+            <param name="ignoreEmptyLine">Ignores empty line. if true ignores empty lines.</param>
+            <returns>Read Last Line and returns as string.</returns>
         </member>
         <member name="T:SimpleFileLogging.SimpleFileLogger">
              <summary>   Simple Logger for file logging. </summary>

@@ -63,6 +63,7 @@
     <Compile Include="Enums\SimpleLogType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="SimpleFileLogging.nuspec" />
     <None Include="simplefilelogging.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

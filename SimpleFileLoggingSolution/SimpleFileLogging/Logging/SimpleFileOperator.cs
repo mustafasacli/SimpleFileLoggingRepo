@@ -16,9 +16,8 @@ namespace SimpleFileLogging
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     public class SimpleFileOperator
     {
-        /// <summary>   The lazy operation. </summary>
-        private static Lazy<SimpleFileOperator> lazyOp =
-            new Lazy<SimpleFileOperator>(() => new SimpleFileOperator());
+        private static SimpleFileOperator instance = null;
+        private static readonly object lockObject = new object();
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -37,7 +36,23 @@ namespace SimpleFileLogging
         /// <value> The instance. </value>
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         public static SimpleFileOperator Instance
-        { get { return lazyOp.Value; } }
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (lockObject)
+                    {
+                        if (instance == null)
+                        {
+                            instance = new SimpleFileOperator();
+                        }
+                    }
+                }
+
+                return instance;
+            }
+        }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>   Writes the given file. </summary>
@@ -47,52 +62,93 @@ namespace SimpleFileLogging
         /// <param name="filePath">     Full pathname of the file. </param>
         /// <param name="rows">         The rows. </param>
         /// <param name="writeLine">    (Optional) True to write line. </param>
+        /// <param name="autoFlushLineCount">Line count for file auto flush.</param>
         ////////////////////////////////////////////////////////////////////////////////////////////////////
-        public void Write(string filePath, List<string> rows, bool writeLine = false)
+        public void Write(string filePath, List<string> rows, bool writeLine = false, uint autoFlushLineCount = 5)
         {
-            try
+            FileMode fileMode = File.Exists(filePath) ? FileMode.Append : FileMode.OpenOrCreate;
+
+            using (StreamWriter writer = new StreamWriter(
+                       new FileStream(filePath, fileMode))
+            )
             {
-                FileMode fMode = File.Exists(filePath) ? FileMode.Append : FileMode.OpenOrCreate;
+                autoFlushLineCount = autoFlushLineCount < 1 ? 1 : autoFlushLineCount;
+                bool autoFlush = rows.Count < autoFlushLineCount;
+                writer.AutoFlush = autoFlush;
 
-                using (StreamWriter writer = new StreamWriter(
-                           new FileStream(filePath, fMode))
-                )
+                if (!writeLine)
                 {
-                    bool autoFlush = rows.Count < 5;
-                    writer.AutoFlush = autoFlush;
-
-                    if (!writeLine)
+                    string text;
+                    rows.ForEach(line =>
                     {
-                        string str;
-                        rows.ForEach(s =>
+                        text = line ?? string.Empty;
+                        if (text.EndsWith("\r\n") || text.EndsWith("\n"))
                         {
-                            str = s ?? string.Empty;
-                            if (str.EndsWith("\r\n") || str.EndsWith("\n"))
-                            {
-                                writer.Write(str);
-                            }
-                            else
-                            {
-                                writer.WriteLine(str);
-                            }
-                        });
-                    }
-                    else
+                            writer.Write(text);
+                        }
+                        else
+                        {
+                            writer.WriteLine(text);
+                        }
+                    });
+                }
+                else
+                {
+                    rows.ForEach(line =>
                     {
-                        rows.ForEach(s =>
-                        {
-                            writer.WriteLine(s ?? string.Empty);
-                        });
-                    }
+                        writer.WriteLine(line ?? string.Empty);
+                    });
+                }
 
-                    if (!autoFlush)
-                        writer.Flush();
+                if (!autoFlush)
+                    writer.Flush();
+            }
+        }
+
+        /// <summary>
+        /// Reads the lines.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>Returns lines as string list.</returns>
+        public static List<string> ReadLines(string fileName)
+        {
+            List<string> lines = new List<string>();
+
+            using (StreamReader reader = new StreamReader(fileName))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    lines.Add(line);
                 }
             }
-            catch
+
+            return lines;
+        }
+
+        /// <summary>
+        /// Read Last the line.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="ignoreEmptyLine">Ignores empty line. if true ignores empty lines.</param>
+        /// <returns>Read Last Line and returns as string.</returns>
+        public static string ReadLastLine(string fileName, bool ignoreEmptyLine = false)
+        {
+            string lastLine = string.Empty;
+
+            using (StreamReader reader = new StreamReader(fileName))
             {
-                throw;
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (!string.IsNullOrWhiteSpace(line) || !ignoreEmptyLine)
+                    {
+                        lastLine = string.Copy(line);
+                    }
+                }
             }
+
+            return lastLine;
         }
     }
 }
