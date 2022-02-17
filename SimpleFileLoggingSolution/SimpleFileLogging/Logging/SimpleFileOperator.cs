@@ -86,32 +86,18 @@ namespace SimpleFileLogging
                     {
                         text = line ?? empty;
                         writer.Write(text);
-                        //if (text.EndsWith("\r\n") || text.EndsWith("\n"))
-                        //{
-                        //    writer.Write(text);
-                        //}
-                        //else
-                        //{
-                        //    writer.WriteLine(text);
-                        //}
                     });
                 }
                 else
                 {
                     int lineCount = rows.Count;
-                    if (lineCount == 1)
-                    {
-                        writer.WriteLine(rows[0]);
-                        return;
-                    }
 
-                    int lineCounter = 0;
-                    rows.ForEach(line =>
+                    for (int lineCounter = 0; lineCounter < lineCount; lineCounter++)
                     {
-                        writer.Write(line ?? empty);
-                        if ((lineCounter++) < lineCount - 1)
-                            writer.WriteLine(empty);
-                    });
+                        writer.Write(rows[lineCounter] ?? empty);
+                        if (lineCounter < lineCount - 1)
+                        { writer.WriteLine(empty); }
+                    }
                 }
 
                 if (!autoFlush)
