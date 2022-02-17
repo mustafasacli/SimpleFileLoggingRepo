@@ -75,13 +75,15 @@ namespace SimpleFileLogging
                        new FileStream(filePath, fileMode))
             )
             {
-                if (fileMode == FileMode.Append)
-                    writer.WriteLine();
 
                 autoFlushLineCount = autoFlushLineCount < 1 ? 1 : autoFlushLineCount;
                 bool autoFlush = rows.Count < autoFlushLineCount;
                 writer.AutoFlush = autoFlush;
                 string empty = string.Empty;
+
+                if (fileMode == FileMode.Append)
+                    writer.WriteLine(empty);
+
                 if (!writeLine)
                 {
                     string text;
