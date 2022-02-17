@@ -66,6 +66,9 @@ namespace SimpleFileLogging
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         public void Write(string filePath, List<string> rows, bool writeLine = false, uint autoFlushLineCount = 5)
         {
+            if (rows == null || rows.Count < 1)
+                return;
+
             FileMode fileMode = File.Exists(filePath) ? FileMode.Append : FileMode.OpenOrCreate;
 
             using (StreamWriter writer = new StreamWriter(
@@ -75,28 +78,39 @@ namespace SimpleFileLogging
                 autoFlushLineCount = autoFlushLineCount < 1 ? 1 : autoFlushLineCount;
                 bool autoFlush = rows.Count < autoFlushLineCount;
                 writer.AutoFlush = autoFlush;
-
+                string empty = string.Empty;
                 if (!writeLine)
                 {
                     string text;
                     rows.ForEach(line =>
                     {
-                        text = line ?? string.Empty;
-                        if (text.EndsWith("\r\n") || text.EndsWith("\n"))
-                        {
-                            writer.Write(text);
-                        }
-                        else
-                        {
-                            writer.WriteLine(text);
-                        }
+                        text = line ?? empty;
+                        writer.Write(text);
+                        //if (text.EndsWith("\r\n") || text.EndsWith("\n"))
+                        //{
+                        //    writer.Write(text);
+                        //}
+                        //else
+                        //{
+                        //    writer.WriteLine(text);
+                        //}
                     });
                 }
                 else
                 {
+                    int lineCount = rows.Count;
+                    if (lineCount == 1)
+                    {
+                        writer.WriteLine(rows[0]);
+                        return;
+                    }
+
+                    int lineCounter = 0;
                     rows.ForEach(line =>
                     {
-                        writer.WriteLine(line ?? string.Empty);
+                        writer.Write(line ?? empty);
+                        if ((lineCounter++) < lineCount - 1)
+                            writer.WriteLine(empty);
                     });
                 }
 
