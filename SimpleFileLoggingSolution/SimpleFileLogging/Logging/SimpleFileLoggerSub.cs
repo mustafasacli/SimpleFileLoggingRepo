@@ -78,7 +78,7 @@ namespace SimpleFileLogging
                 rows.AddRange(additions);
                 rows.Add(AppLoggingValues.Lines);
 
-                SimpleFileOperator.Instance.Write(fileName, rows);
+                SimpleFileOperator.Instance.Write(fileName, rows, writeLine: true);
             }
             catch (Exception ee)
             { WriteException(ee); }
@@ -147,7 +147,7 @@ namespace SimpleFileLogging
                 rows.AddRange(messages);
                 rows.Add(AppLoggingValues.Lines);
 
-                SimpleFileOperator.Instance.Write(fileName, rows);
+                SimpleFileOperator.Instance.Write(fileName, rows, writeLine: true);
             }
             catch (Exception ee)
             { WriteException(ee); }
@@ -220,7 +220,7 @@ namespace SimpleFileLogging
                 rows.AddRange(messages);
                 rows.Add(AppLoggingValues.Lines);
 
-                SimpleFileOperator.Instance.Write(fileName, rows);
+                SimpleFileOperator.Instance.Write(fileName, rows, writeLine: true);
             }
             catch (Exception ee)
             { WriteException(ee); }

@@ -155,7 +155,7 @@ namespace SimpleFileLogging
 
                 var directoryName = AppLoggingValues.AssemblyDirectory;
                 string fileFullName = string.Format("{0}/simple-log-error.log", directoryName);
-                SimpleFileOperator.Instance.Write(fileFullName, rows);
+                SimpleFileOperator.Instance.Write(fileFullName, rows, writeLine: true);
             }
             catch
             { }
