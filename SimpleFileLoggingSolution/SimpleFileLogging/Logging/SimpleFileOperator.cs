@@ -3,7 +3,6 @@
 //
 // summary:	Implements the public file operator class
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -72,10 +71,9 @@ namespace SimpleFileLogging
             FileMode fileMode = File.Exists(filePath) ? FileMode.Append : FileMode.OpenOrCreate;
 
             using (StreamWriter writer = new StreamWriter(
-                       new FileStream(filePath, fileMode))
+                       new FileStream(filePath, fileMode, FileAccess.Write))
             )
             {
-
                 autoFlushLineCount = autoFlushLineCount < 1 ? 1 : autoFlushLineCount;
                 bool autoFlush = rows.Count < autoFlushLineCount;
                 writer.AutoFlush = autoFlush;

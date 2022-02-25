@@ -50,7 +50,6 @@ namespace SimpleFileLogging
         {
         }
 
-
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Constructor that prevents a default instance of this class from being created.
@@ -133,7 +132,10 @@ namespace SimpleFileLogging
                 if (exception == null)
                     return;
 
-                var rows = new List<string>();
+                var rows = new List<string>()
+                {
+                        $"Time : {DateTime.Now.ToString(AppLoggingValues.GeneralDateFormat)}"
+                };
 
                 Exception ex = exception;
 
@@ -147,7 +149,6 @@ namespace SimpleFileLogging
 
                     if (ex != null)
                         rows.Add("****************");
-
                 } while (ex != null);
 
                 if (rows.Count > 0)
