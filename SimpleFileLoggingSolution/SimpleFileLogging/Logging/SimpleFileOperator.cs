@@ -70,41 +70,48 @@ namespace SimpleFileLogging
 
             FileMode fileMode = File.Exists(filePath) ? FileMode.Append : FileMode.OpenOrCreate;
 
-            using (StreamWriter writer = new StreamWriter(
-                       new FileStream(filePath, fileMode, FileAccess.Write))
-            )
+            using (FileStream fileStream = new FileStream(filePath, fileMode, FileAccess.Write, FileShare.ReadWrite))
+            using (StreamWriter writer = new StreamWriter(fileStream))
             {
-                autoFlushLineCount = autoFlushLineCount < 1 ? 1 : autoFlushLineCount;
-                bool autoFlush = rows.Count < autoFlushLineCount;
-                writer.AutoFlush = autoFlush;
-                string empty = string.Empty;
-
-                if (fileMode == FileMode.Append)
-                    writer.WriteLine(empty);
-
-                if (!writeLine)
+                try
                 {
-                    string text;
-                    rows.ForEach(line =>
-                    {
-                        text = line ?? empty;
-                        writer.Write(text);
-                    });
-                }
-                else
-                {
-                    int lineCount = rows.Count;
+                    autoFlushLineCount = autoFlushLineCount < 1 ? 1 : autoFlushLineCount;
+                    bool autoFlush = rows.Count < autoFlushLineCount;
+                    writer.AutoFlush = autoFlush;
+                    string empty = string.Empty;
 
-                    for (int lineCounter = 0; lineCounter < lineCount; lineCounter++)
+                    if (fileMode == FileMode.Append)
+                        writer.WriteLine(empty);
+
+                    if (!writeLine)
                     {
-                        writer.Write(rows[lineCounter] ?? empty);
-                        if (lineCounter < lineCount - 1)
-                        { writer.WriteLine(empty); }
+                        string text;
+                        rows.ForEach(line =>
+                        {
+                            text = line ?? empty;
+                            writer.Write(text);
+                        });
                     }
-                }
+                    else
+                    {
+                        int lineCount = rows.Count;
 
-                if (!autoFlush)
-                    writer.Flush();
+                        for (int lineCounter = 0; lineCounter < lineCount; lineCounter++)
+                        {
+                            writer.Write(rows[lineCounter] ?? empty);
+                            if (lineCounter < lineCount - 1)
+                            { writer.WriteLine(empty); }
+                        }
+                    }
+
+                    if (!autoFlush)
+                        writer.Flush();
+                }
+                finally
+                {
+                    fileStream?.Close();
+                    writer?.Close();
+                }
             }
         }
 
