@@ -1,6 +1,7 @@
 ﻿using SimpleFileLogging.Enums;
 using SimpleFileLogging.Logging;
 using System;
+using System.Collections.Generic;
 
 namespace SimpleFileLogging.TestConsoleApp
 {
@@ -46,6 +47,8 @@ namespace SimpleFileLogging.TestConsoleApp
 
             var dayLogger = SimpleLoggerStorage.GetSimpleLogger(SimpleLogDateFormats.Day, enableMethodGrouping: true);
             dayLogger?.Info("message1-2", "message2-2", "message3-2");
+
+            SimpleFileLogging.SimpleFileOperator.Instance.Write("Sonuc.txt", new List<string> { "Id: " + 150, "Sonuc: " + 3, "-------------" }, writeLine: true);
 
             Console.ReadKey();
         }
