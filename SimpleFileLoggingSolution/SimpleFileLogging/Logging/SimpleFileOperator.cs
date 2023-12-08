@@ -71,7 +71,10 @@ namespace SimpleFileLogging
             FileMode fileMode = File.Exists(filePath) ? FileMode.Append : FileMode.OpenOrCreate;
 
             using (FileStream fileStream = new FileStream(filePath, fileMode, FileAccess.Write, FileShare.ReadWrite))
-            using (StreamWriter writer = new StreamWriter(fileStream))
+            using (StreamWriter writer =
+                fileMode == FileMode.Append ?
+                new StreamWriter(filePath, append: true)
+                : new StreamWriter(fileStream))
             {
                 autoFlushLineCount = autoFlushLineCount < 1 ? 1 : autoFlushLineCount;
                 bool autoFlush = rows.Count < autoFlushLineCount;
